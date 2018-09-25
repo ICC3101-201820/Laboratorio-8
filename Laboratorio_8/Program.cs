@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Laboratorio_8
 {
@@ -21,14 +19,9 @@ namespace Laboratorio_8
 
             if (seleccion == "1")
             {
-                if(File.Exists(NOMBRE_ARCHIVO))
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    FileStream fileStream = new FileStream(NOMBRE_ARCHIVO, FileMode.Open);
-                    empresa = (Empresa)binaryFormatter.Deserialize(fileStream);
-                    fileStream.Close();
-                }
-                else
+                empresa = Empresa.Deserializar(NOMBRE_ARCHIVO);
+
+                if (empresa == null)
                 {
                     Console.WriteLine("No hay registros guardados de la empresa");
                 }
@@ -49,10 +42,7 @@ namespace Laboratorio_8
                 empresa = new Empresa(nombre, rut);
 
                 // Guardamos los datos serializados en un archivo
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                FileStream fileStream = new FileStream(NOMBRE_ARCHIVO, FileMode.OpenOrCreate);
-                binaryFormatter.Serialize(fileStream, empresa);
-                fileStream.Close();
+                Empresa.Serializar(NOMBRE_ARCHIVO, empresa);
             }
 
             Console.WriteLine("\nLos datos de la empresa son:");

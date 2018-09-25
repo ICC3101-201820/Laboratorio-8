@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Laboratorio_8
 {
+    [Serializable()]
     public class Departamento : Division
     {
         public List<Seccion> secciones;
