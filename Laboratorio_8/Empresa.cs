@@ -43,5 +43,19 @@ namespace Laboratorio_8
                 return null;
             }
         }
+
+        public override string ToString()
+        {
+            return $"Empresa: {Nombre} ({Rut})";
+        }
+
+        public void MostrarInformacion()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"{this}\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            foreach (Division division in divisiones)
+                Console.WriteLine($"{division}\n");
+        }
     }
 }

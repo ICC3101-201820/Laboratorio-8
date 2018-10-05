@@ -15,8 +15,24 @@ namespace Laboratorio_8
         public Division(string nombre)
         {
             Nombre = nombre;
+            trabajadores = new List<Persona>();
         }
 
         public string Nombre { get; }
+
+        public override string ToString()
+        {
+            string resultado = $"[{this.GetType().Name}] {Nombre}\n";
+
+            resultado += $"\tEncargado: {encargado.Nombre}\n";
+            resultado += "\tTrabajadores:";
+
+            foreach (Persona trabajador in trabajadores)
+            {
+                resultado += $"\n\t\t{trabajador.Nombre} - {trabajador.Cargo}";
+            }
+
+            return resultado;
+        }
     }
 }
