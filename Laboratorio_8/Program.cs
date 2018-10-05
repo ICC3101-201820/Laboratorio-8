@@ -2,12 +2,12 @@
 
 namespace Laboratorio_8
 {
-    class Program
+    public class Program
     {
         // Lo dejamos en una variable ya que así es más fácil cambiarlo a futuro
         private const string NOMBRE_ARCHIVO = "empresa.bin";
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("¿Deseas cargar datos previos?" +
                 "\n[1] Sí" +
@@ -41,13 +41,43 @@ namespace Laboratorio_8
                 string rut = Console.ReadLine();
                 empresa = new Empresa(nombre, rut);
 
+                Area area = new Area("Ingeniería");
+                area.encargado = new Persona("Matías", "Recabarren", "", "Jefe");
+                area.trabajadores.Add(new Persona("Nicolás", "Gómez", "", "Profesor"));
+                area.trabajadores.Add(new Persona("Ignacio", "Figueroa", "", "Ayudante"));
+                area.trabajadores.Add(new Persona("Sebastían", "Baixas", "", "Ayudante"));
+
+                Departamento departamento = new Departamento("Ciencias de la computación");
+                departamento.encargado = new Persona("Steve", "Wozniak", "", "Director");
+                departamento.trabajadores.Add(new Persona("Luke", "Skywalker", "", "Jedi"));
+                departamento.trabajadores.Add(new Persona("Darth", "Vader", "", "Sith"));
+
+                area.departamentos.Add(departamento);
+
+                Seccion seccion1 = new Seccion("Informática");
+                seccion1.encargado = new Persona("James", "Cole", "", "Time traveler");
+                seccion1.trabajadores.Add(new Persona("Cassie", "", "", "Doctora"));
+                seccion1.trabajadores.Add(new Persona("Johnson", "", "", "Científica"));
+
+                Seccion seccion2 = new Seccion("Seguridad");
+                seccion2.encargado = new Persona("Chama", "Alonso", "", "Hacker");
+                seccion2.trabajadores.Add(new Persona("Alex", "Smith", "", "Hacker Antorcha"));
+                seccion2.trabajadores.Add(new Persona("Kevin", "Mitnick", "", "Hacker Famoso"));
+
+                departamento.secciones.Add(seccion1);
+                departamento.secciones.Add(seccion2);
+
+                empresa.divisiones.Add(area);
+                empresa.divisiones.Add(departamento);
+                empresa.divisiones.Add(seccion1);
+                empresa.divisiones.Add(seccion2);
+
                 // Guardamos los datos serializados en un archivo
                 Empresa.Serializar(NOMBRE_ARCHIVO, empresa);
             }
 
-            Console.WriteLine("\nLos datos de la empresa son:");
-            Console.WriteLine("\tNombre: " + empresa.Nombre, ConsoleColor.Red);
-            Console.WriteLine("\tRut: " + empresa.Rut);
+            empresa.MostrarInformacion();
+
             Console.ReadKey();
         }
     }
